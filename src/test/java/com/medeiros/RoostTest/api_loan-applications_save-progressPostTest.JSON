@@ -1,0 +1,166 @@
+[
+  {
+    "description": "Valid request with proper authorization header",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["personalInfo", "employment"],
+      "personalInfo": {
+        "name": "John Doe",
+        "dob": "1980-01-01"
+      },
+      "employment": {
+        "status": "employed",
+        "employer": "ABC Corp"
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "referenceNumber": "string",
+      "savedAt": "string",
+      "expiresAt": "string"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Request without authorization header",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["personalInfo"],
+      "personalInfo": {
+        "name": "Jane Doe"
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Request with an invalid authorization token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer invalid_token"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["employment"],
+      "employment": {
+        "status": "unemployed"
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Invalid token"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Request with a malformed authorization header",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": []
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Malformed header"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Request with an unexpected JSON body",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "unexpectedField": "unexpectedValue",
+      "applicationId": "12345"
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unexpected body content"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Request with an empty JSON body",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "referenceNumber": "string",
+      "savedAt": "string",
+      "expiresAt": "string"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Response schema validation",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["personalInfo", "employment"],
+      "personalInfo": {
+        "name": "John Doe",
+        "dob": "1980-01-01"
+      },
+      "employment": {
+        "status": "employed",
+        "employer": "ABC Corp"
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "referenceNumber": "string",
+      "savedAt": "string",
+      "expiresAt": "string"
+    },
+    "expected_status_code": 200
+  }
+]
