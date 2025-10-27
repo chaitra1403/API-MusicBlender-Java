@@ -1,0 +1,135 @@
+[
+  {
+    "description": "Test a valid request to retrieve browser compatibility information",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "supportedBrowsers": [
+        {
+          "browser": "string",
+          "minimum_version": "string",
+          "recommended_version": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test using an invalid HTTP method to access the endpoint",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Allow": "GET"
+    },
+    "response_body": {
+      "error": "Method Not Allowed"
+    },
+    "expected_status_code": 405
+  },
+  {
+    "description": "Test accessing the endpoint with a malformed URL",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Not Found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test the scenario where 'supportedBrowsers' array is empty",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "supportedBrowsers": []
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test a valid request with XML content type",
+    "request_header": {
+      "Content-Type": "application/xml"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/xml"
+    },
+    "response_body": "<supportedBrowsers><browser><name>string</name><minimum_version>string</minimum_version><recommended_version>string</recommended_version></browser></supportedBrowsers>",
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test a request with missing authorization token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test a request with invalid authorization token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "InvalidToken"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test the scenario where the response body is empty",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Internal Server Error"
+    },
+    "expected_status_code": 500
+  }
+]

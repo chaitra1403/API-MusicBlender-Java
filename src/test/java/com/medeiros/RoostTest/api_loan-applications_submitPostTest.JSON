@@ -1,0 +1,280 @@
+[
+  {
+    "description": "Test submitting a valid loan application",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "Employed",
+        "employer": "Tech Corp"
+      },
+      "financialInfo": {
+        "income": 75000
+      },
+      "propertyInfo": {
+        "address": "123 Main St",
+        "value": 300000
+      },
+      "loanInfo": {
+        "amount": 250000,
+        "term": 30
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "confirmationMessage": "Application submitted successfully",
+      "applicationReferenceNumber": "ABC123",
+      "submissionDate": "2023-10-01T12:00:00Z",
+      "nextSteps": ["Review application", "Contact applicant"]
+    },
+    "expected_status_code": 201
+  },
+  {
+    "description": "Test submitting loan application without Bearer token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "Employed",
+        "employer": "Tech Corp"
+      },
+      "financialInfo": {
+        "income": 75000
+      },
+      "propertyInfo": {
+        "address": "123 Main St",
+        "value": 300000
+      },
+      "loanInfo": {
+        "amount": 250000,
+        "term": 30
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "errors": [
+        {
+          "field": "Authorization",
+          "message": "Missing Bearer token"
+        }
+      ]
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test submitting loan application with an invalid Bearer token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "InvalidToken"
+    },
+    "request_body": {
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "Employed",
+        "employer": "Tech Corp"
+      },
+      "financialInfo": {
+        "income": 75000
+      },
+      "propertyInfo": {
+        "address": "123 Main St",
+        "value": 300000
+      },
+      "loanInfo": {
+        "amount": 250000,
+        "term": 30
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "errors": [
+        {
+          "field": "Authorization",
+          "message": "Invalid Bearer token"
+        }
+      ]
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test submitting loan application with invalid data",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "personalInfo": {
+        "name": "",
+        "age": "thirty"
+      },
+      "employment": {},
+      "financialInfo": {},
+      "propertyInfo": {},
+      "loanInfo": {}
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "errors": [
+        {
+          "field": "personalInfo.age",
+          "message": "Invalid type, expected integer"
+        },
+        {
+          "field": "personalInfo.name",
+          "message": "Name is required"
+        }
+      ]
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test submitting an empty loan application payload",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "errors": [
+        {
+          "field": "personalInfo",
+          "message": "Personal information is required"
+        }
+      ]
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test submitting a malformed JSON payload",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": "{ personalInfo: { name: 'John Doe', age: 30 }",
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "errors": [
+        {
+          "field": "requestBody",
+          "message": "Malformed JSON"
+        }
+      ]
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test submitting loan application with null values in payload",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "personalInfo": {
+        "name": null,
+        "age": null
+      },
+      "employment": null,
+      "financialInfo": null,
+      "propertyInfo": null,
+      "loanInfo": null
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "errors": [
+        {
+          "field": "personalInfo.name",
+          "message": "Name cannot be null"
+        },
+        {
+          "field": "personalInfo.age",
+          "message": "Age cannot be null"
+        }
+      ]
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test submitting loan application with unexpected fields in payload",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "Employed",
+        "employer": "Tech Corp"
+      },
+      "financialInfo": {
+        "income": 75000
+      },
+      "propertyInfo": {
+        "address": "123 Main St",
+        "value": 300000
+      },
+      "loanInfo": {
+        "amount": 250000,
+        "term": 30
+      },
+      "unexpectedField": "unexpectedValue"
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "confirmationMessage": "Application submitted successfully",
+      "applicationReferenceNumber": "ABC123",
+      "submissionDate": "2023-10-01T12:00:00Z",
+      "nextSteps": ["Review application", "Contact applicant"]
+    },
+    "expected_status_code": 201
+  }
+]

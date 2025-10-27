@@ -1,0 +1,172 @@
+[
+  {
+    "description": "Test a valid request with proper path and authorization",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "electronicallySignedBy": "John Doe",
+      "signatureTimestamp": "2023-10-01T12:00:00Z",
+      "ipAddress": "192.168.1.1",
+      "documentIds": ["doc123"]
+    },
+    "query_params": {},
+    "path_params": {
+      "applicationId": "app123"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "confirmationMessage": "Documents signed successfully",
+      "signedDocumentIds": ["doc123"],
+      "processingTimestamp": "2023-10-01T12:01:00Z",
+      "nextSteps": "Review signed documents"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test missing applicationId in the path",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": ""
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Documents not found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test invalid applicationId format",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "invalid!@#"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Documents not found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request without authorization token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "app123"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized access"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with an invalid authorization token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "InvalidToken"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "app123"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized access"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test response with empty signedDocumentIds array",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "electronicallySignedBy": "John Doe",
+      "signatureTimestamp": "2023-10-01T12:00:00Z",
+      "ipAddress": "192.168.1.1",
+      "documentIds": []
+    },
+    "query_params": {},
+    "path_params": {
+      "applicationId": "app123"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "confirmationMessage": "No documents to sign",
+      "signedDocumentIds": [],
+      "processingTimestamp": "2023-10-01T12:01:00Z",
+      "nextSteps": "No further action required"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with malformed path",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "app123"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Endpoint not found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test valid request with empty body",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "app123"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "confirmationMessage": "Documents signed successfully",
+      "signedDocumentIds": ["doc123"],
+      "processingTimestamp": "2023-10-01T12:01:00Z",
+      "nextSteps": "Review signed documents"
+    },
+    "expected_status_code": 200
+  }
+]

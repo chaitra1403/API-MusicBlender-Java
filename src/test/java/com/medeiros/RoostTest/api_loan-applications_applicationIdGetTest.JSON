@@ -1,0 +1,148 @@
+[
+  {
+    "description": "Test a valid request with a proper applicationId path param and valid auth token",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "12345"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "applicationId": "12345",
+      "status": "approved",
+      "personalInfo": {},
+      "employment": {},
+      "financialInfo": {},
+      "propertyInfo": {},
+      "loanInfo": {},
+      "submissionDate": "2023-10-01T12:00:00Z",
+      "lastUpdated": "2023-10-10T12:00:00Z"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with missing applicationId path param",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Application not found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request with invalid applicationId format",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "!@#$%"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Application not found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test a valid request with missing Bearer token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "12345"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized access"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test a valid request with an invalid Bearer token",
+    "request_header": {
+      "Authorization": "InvalidToken",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "12345"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized access"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with a non-existent applicationId",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "99999"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Application not found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test a valid request to ensure response schema is correct",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "12345"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "applicationId": "12345",
+      "status": "approved",
+      "personalInfo": {},
+      "employment": {},
+      "financialInfo": {},
+      "propertyInfo": {},
+      "loanInfo": {},
+      "submissionDate": "2023-10-01T12:00:00Z",
+      "lastUpdated": "2023-10-10T12:00:00Z"
+    },
+    "expected_status_code": 200
+  }
+]

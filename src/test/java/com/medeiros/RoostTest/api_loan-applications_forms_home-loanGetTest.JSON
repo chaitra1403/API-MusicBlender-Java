@@ -1,0 +1,192 @@
+[
+  {
+    "description": "Test a valid request with proper authorization",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "formStructure": {},
+      "entryPoints": [
+        {
+          "entryPointUrl": "string",
+          "entryPointName": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request without authorization token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with an invalid authorization token",
+    "request_header": {
+      "Authorization": "InvalidToken",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with malformed authorization header",
+    "request_header": {
+      "Authorization": "Bearer",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test that the response structure matches the expected schema",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "formStructure": {},
+      "entryPoints": [
+        {
+          "entryPointUrl": "string",
+          "entryPointName": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test response when 'entryPoints' array is empty",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "formStructure": {},
+      "entryPoints": []
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test response with incorrect content type",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "formStructure": {},
+      "entryPoints": [
+        {
+          "entryPointUrl": "string",
+          "entryPointName": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with XML content type",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/xml"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unsupported Media Type"
+    },
+    "expected_status_code": 415
+  },
+  {
+    "description": "Test request with null authorization token",
+    "request_header": {
+      "Authorization": null,
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with large payload",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {
+      "largeField": "x".repeat(10000)
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Payload Too Large"
+    },
+    "expected_status_code": 413
+  }
+]

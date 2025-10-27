@@ -1,0 +1,158 @@
+[
+  {
+    "description": "Test rejecting a loan offer with a valid applicationId and valid auth token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "rejectionReason": "Better offer received"
+    },
+    "query_params": {},
+    "path_params": {
+      "applicationId": "12345"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "confirmationMessage": "Offer rejected successfully",
+      "rejectionTimestamp": "2023-10-01T12:00:00Z",
+      "reapplicationOptions": [
+        {
+          "optionName": "Apply again",
+          "description": "You can reapply after 30 days",
+          "url": "https://example.com/reapply"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test rejecting a loan offer without providing an auth token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {
+      "rejectionReason": "Found better rates"
+    },
+    "query_params": {},
+    "path_params": {
+      "applicationId": "12345"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized access"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test rejecting a loan offer with an invalid auth token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "InvalidToken"
+    },
+    "request_body": {
+      "rejectionReason": "Interest rates too high"
+    },
+    "query_params": {},
+    "path_params": {
+      "applicationId": "12345"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized access"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test rejecting a loan offer with a non-existent applicationId",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "rejectionReason": "Changed mind"
+    },
+    "query_params": {},
+    "path_params": {
+      "applicationId": "99999"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test rejecting a loan offer with an empty applicationId",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "rejectionReason": "No longer interested"
+    },
+    "query_params": {},
+    "path_params": {
+      "applicationId": ""
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test rejecting a loan offer with an invalid applicationId format",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "rejectionReason": "Found better terms"
+    },
+    "query_params": {},
+    "path_params": {
+      "applicationId": "abc@123"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test rejecting a loan offer where the response contains an empty reapplicationOptions array",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "rejectionReason": "Not satisfied with terms"
+    },
+    "query_params": {},
+    "path_params": {
+      "applicationId": "12345"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "confirmationMessage": "Offer rejected successfully",
+      "rejectionTimestamp": "2023-10-01T12:00:00Z",
+      "reapplicationOptions": []
+    },
+    "expected_status_code": 200
+  }
+]

@@ -1,0 +1,195 @@
+[
+  {
+    "description": "Test a valid request with proper authentication",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["personalInfo", "employment"],
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "employed",
+        "position": "Software Engineer"
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "referenceNumber": "string",
+      "savedAt": "string",
+      "expiresAt": "string"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request without authentication token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["personalInfo", "employment"],
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "employed",
+        "position": "Software Engineer"
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with an invalid authentication token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "InvalidToken"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["personalInfo", "employment"],
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "employed",
+        "position": "Software Engineer"
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with a malformed authentication token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "MalformedToken"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["personalInfo", "employment"],
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "employed",
+        "position": "Software Engineer"
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with an empty body",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "referenceNumber": "string",
+      "savedAt": "string",
+      "expiresAt": "string"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with unexpected fields in the body",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["personalInfo", "employment"],
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "employed",
+        "position": "Software Engineer"
+      },
+      "unexpectedField": "unexpectedValue"
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "referenceNumber": "string",
+      "savedAt": "string",
+      "expiresAt": "string"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test that the response schema matches the expected format",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "applicationId": "12345",
+      "completedSections": ["personalInfo", "employment"],
+      "personalInfo": {
+        "name": "John Doe",
+        "age": 30
+      },
+      "employment": {
+        "status": "employed",
+        "position": "Software Engineer"
+      }
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "referenceNumber": "string",
+      "savedAt": "string",
+      "expiresAt": "string"
+    },
+    "expected_status_code": 200
+  }
+]

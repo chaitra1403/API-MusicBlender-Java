@@ -1,0 +1,140 @@
+[
+  {
+    "description": "Test a valid request with proper path and auth token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "userId": "validUserId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "notifications": [
+        {
+          "notificationId": "string",
+          "type": "string",
+          "message": "string",
+          "timestamp": "string",
+          "read": true
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with missing 'userId' path parameter",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "User not found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request with invalid 'userId' format",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "userId": "123"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "User not found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request without authentication token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "userId": "validUserId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with invalid authentication token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "invalidToken"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "userId": "validUserId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test response when user has no notifications",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "userId": "userWithNoNotifications"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "notifications": []
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with malformed path",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "userId": "validUserId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "User not found"
+    },
+    "expected_status_code": 404
+  }
+]

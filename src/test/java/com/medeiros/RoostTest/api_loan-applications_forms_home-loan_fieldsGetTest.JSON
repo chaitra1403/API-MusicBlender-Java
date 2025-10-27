@@ -1,0 +1,196 @@
+[
+  {
+    "description": "Test a valid request with proper authorization",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "fields": [
+        {
+          "field_name": "string",
+          "field_type": "string",
+          "required": true,
+          "validation": {},
+          "helpText": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request without authorization token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with an invalid authorization token",
+    "request_header": {
+      "Authorization": "InvalidToken",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test that response contains expected fields structure",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "fields": [
+        {
+          "field_name": "string",
+          "field_type": "string",
+          "required": true,
+          "validation": {},
+          "helpText": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test response when no fields are available",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "fields": []
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test that each field in the response has correct property types",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "fields": [
+        {
+          "field_name": "string",
+          "field_type": "string",
+          "required": true,
+          "validation": {},
+          "helpText": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with XML content type",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/xml"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/xml"
+    },
+    "response_body": "<fields><field><field_name>string</field_name><field_type>string</field_type><required>true</required><validation/><helpText>string</helpText></field></fields>",
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test with missing Content-Type header",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Content-Type header missing"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test with large payload",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {
+      "largeField": "a".repeat(10000)
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Payload too large"
+    },
+    "expected_status_code": 413
+  },
+  {
+    "description": "Test with invalid query parameter type",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {
+      "limit": "invalid"
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Invalid query parameter type"
+    },
+    "expected_status_code": 400
+  }
+]

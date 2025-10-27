@@ -1,0 +1,141 @@
+[
+  {
+    "description": "Test a valid request with proper path and auth token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "confirmationMessage": "string",
+      "acceptanceTimestamp": "string",
+      "nextSteps": [
+        {
+          "stepNumber": 1,
+          "description": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with missing applicationId in the path",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": ""
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request with invalid applicationId",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "invalidId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request without Bearer token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with invalid Bearer token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "invalidToken"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with malformed applicationId",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "!@#$%^&*"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request with empty applicationId",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": ""
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  }
+]

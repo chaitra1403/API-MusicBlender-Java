@@ -1,0 +1,157 @@
+[
+  {
+    "description": "Test a valid field value with correct authentication",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "fieldName": "loanAmount",
+      "value": "5000"
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "valid": true,
+      "message": "Field validation successful"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test an invalid field value with correct authentication",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "fieldName": "loanAmount",
+      "value": "invalidValue"
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "valid": false,
+      "message": "Invalid field value"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test request without authentication token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {
+      "fieldName": "loanAmount",
+      "value": "5000"
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with an invalid authentication token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "InvalidToken"
+    },
+    "request_body": {
+      "fieldName": "loanAmount",
+      "value": "5000"
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with an empty JSON body",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "valid": false,
+      "message": "Invalid field value"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test request with a malformed JSON body",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": "{fieldName: loanAmount, value: 5000}",
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "valid": false,
+      "message": "Invalid field value"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test request with a null field value",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {
+      "fieldName": "loanAmount",
+      "value": null
+    },
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "valid": false,
+      "message": "Invalid field value"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test request with incorrect Content-Type header",
+    "request_header": {
+      "Content-Type": "application/xml",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": "<fieldName>loanAmount</fieldName><value>5000</value>",
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unsupported Media Type"
+    },
+    "expected_status_code": 415
+  }
+]
