@@ -1,0 +1,182 @@
+[
+  {
+    "description": "Test a valid request with proper query params and valid auth token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {
+      "referenceNumber": "validRef123",
+      "emailAddress": "user@example.com"
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "applicationId": "string",
+      "completedSections": ["string"],
+      "personalInfo": {},
+      "employment": {}
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with missing 'referenceNumber' query param",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {
+      "emailAddress": "user@example.com"
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Missing required parameter: referenceNumber"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test request with missing 'emailAddress' query param",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {
+      "referenceNumber": "validRef123"
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Missing required parameter: emailAddress"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test request with invalid format for 'referenceNumber'",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {
+      "referenceNumber": "123456",
+      "emailAddress": "user@example.com"
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Invalid format for parameter: referenceNumber"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test request with invalid format for 'emailAddress'",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {
+      "referenceNumber": "validRef123",
+      "emailAddress": "userexample.com"
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Invalid format for parameter: emailAddress"
+    },
+    "expected_status_code": 400
+  },
+  {
+    "description": "Test request with non-existent 'referenceNumber' and 'emailAddress'",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {
+      "referenceNumber": "nonExistentRef",
+      "emailAddress": "nonexistent@example.com"
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Application not found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request without an authorization token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {
+      "referenceNumber": "validRef123",
+      "emailAddress": "user@example.com"
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Missing authorization token"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with an invalid authorization token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "invalidToken"
+    },
+    "request_body": {},
+    "query_params": {
+      "referenceNumber": "validRef123",
+      "emailAddress": "user@example.com"
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Invalid authorization token"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with empty query parameters",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {
+      "referenceNumber": "",
+      "emailAddress": ""
+    },
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Invalid parameters"
+    },
+    "expected_status_code": 400
+  }
+]

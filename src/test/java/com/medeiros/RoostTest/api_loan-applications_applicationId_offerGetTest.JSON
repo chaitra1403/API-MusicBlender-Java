@@ -1,0 +1,169 @@
+[
+  {
+    "description": "Test a valid request with proper path parameter and valid auth token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "applicationId": "validApplicationId",
+      "loanAmount": "number",
+      "interestRate": "number",
+      "loanTerm": "number",
+      "monthlyPayment": "number",
+      "closingCosts": "number",
+      "annualPercentageRate": "number",
+      "conditions": ["string"],
+      "expirationDate": "string"
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request with missing applicationId path parameter",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": ""
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request with invalid applicationId format",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "123-invalid"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request without Bearer token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with invalid Bearer token",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "invalidToken"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with non-existent applicationId",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "nonexistent"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request for an expired loan offer",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "expiredApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "description": "Offer not found or application not approved"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test that the response structure matches the expected schema",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "applicationId": "validApplicationId",
+      "loanAmount": "number",
+      "interestRate": "number",
+      "loanTerm": "number",
+      "monthlyPayment": "number",
+      "closingCosts": "number",
+      "annualPercentageRate": "number",
+      "conditions": ["string"],
+      "expirationDate": "string"
+    },
+    "expected_status_code": 200
+  }
+]

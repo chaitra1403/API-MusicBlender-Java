@@ -1,0 +1,169 @@
+[
+  {
+    "description": "Test a valid request with a proper path parameter and valid auth token",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "documents": [
+        {
+          "documentId": "doc123",
+          "documentType": "pdf",
+          "format": "application/pdf",
+          "url": "http://example.com/doc123",
+          "generatedAt": "2023-10-01T12:00:00Z",
+          "signatureRequired": false
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test request without an authentication token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with an invalid authentication token",
+    "request_header": {
+      "Authorization": "InvalidToken",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with missing applicationId path parameter",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Not Found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request with invalid format for applicationId",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "12345"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Not Found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test request with a non-existent applicationId",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "nonExistentApplicationId"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Not Found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test response when the application has no documents",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "applicationIdWithNoDocuments"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "documents": []
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test response document properties for correct types and formats",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {
+      "applicationId": "validApplicationIdWithDocuments"
+    },
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "documents": [
+        {
+          "documentId": "doc123",
+          "documentType": "pdf",
+          "format": "application/pdf",
+          "url": "http://example.com/doc123",
+          "generatedAt": "2023-10-01T12:00:00Z",
+          "signatureRequired": false
+        }
+      ]
+    },
+    "expected_status_code": 200
+  }
+]

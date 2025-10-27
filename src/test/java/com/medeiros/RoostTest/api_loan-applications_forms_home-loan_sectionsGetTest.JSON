@@ -1,0 +1,131 @@
+[
+  {
+    "description": "Valid request with proper authentication",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "sections": [
+        {
+          "sectionId": "string",
+          "sectionName": "string",
+          "instructionalText": "string",
+          "fields": [
+            {
+              "fieldName": "string",
+              "helpText": "string",
+              "tooltip": "string",
+              "exampleInput": "string"
+            }
+          ]
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Request without authentication token",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Request with an invalid authentication token",
+    "request_header": {
+      "Authorization": "InvalidToken",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test the structure of the response body",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "sections": [
+        {
+          "sectionId": "string",
+          "sectionName": "string",
+          "instructionalText": "string",
+          "fields": [
+            {
+              "fieldName": "string",
+              "helpText": "string",
+              "tooltip": "string",
+              "exampleInput": "string"
+            }
+          ]
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Response when no sections are available",
+    "request_header": {
+      "Authorization": "${AUTH_TOKEN}",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "sections": []
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Request with a malformed authentication token",
+    "request_header": {
+      "Authorization": "MalformedToken",
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  }
+]

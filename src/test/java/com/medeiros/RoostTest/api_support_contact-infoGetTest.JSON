@@ -1,0 +1,222 @@
+[
+  {
+    "description": "Test a valid request to retrieve customer support contact information",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "phoneNumbers": [
+        {
+          "type": "string",
+          "number": "string",
+          "availability": "string"
+        }
+      ],
+      "emailAddresses": [
+        {
+          "type": "string",
+          "email": "string",
+          "responseTime": "string"
+        }
+      ],
+      "chatOptions": [
+        {
+          "name": "string",
+          "url": "string",
+          "availability": "string"
+        }
+      ],
+      "faqResources": [
+        {
+          "topic": "string",
+          "url": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Verify response includes a phoneNumbers array with valid objects",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "phoneNumbers": [
+        {
+          "type": "string",
+          "number": "string",
+          "availability": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Verify response includes an emailAddresses array with valid objects",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "emailAddresses": [
+        {
+          "type": "string",
+          "email": "string",
+          "responseTime": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Verify response includes a chatOptions array with valid objects",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "chatOptions": [
+        {
+          "name": "string",
+          "url": "string",
+          "availability": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Verify response includes a faqResources array with valid objects",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "faqResources": [
+        {
+          "topic": "string",
+          "url": "string"
+        }
+      ]
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Verify response handles empty arrays correctly",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "phoneNumbers": [],
+      "emailAddresses": [],
+      "chatOptions": [],
+      "faqResources": []
+    },
+    "expected_status_code": 200
+  },
+  {
+    "description": "Test malformed request path returns 404",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Not Found"
+    },
+    "expected_status_code": 404
+  },
+  {
+    "description": "Test using an invalid HTTP method returns 405",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "${AUTH_TOKEN}"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Method Not Allowed"
+    },
+    "expected_status_code": 405
+  },
+  {
+    "description": "Test request with missing Authorization token returns 401",
+    "request_header": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Unauthorized"
+    },
+    "expected_status_code": 401
+  },
+  {
+    "description": "Test request with invalid Authorization token returns 403",
+    "request_header": {
+      "Content-Type": "application/json",
+      "Authorization": "InvalidToken"
+    },
+    "request_body": {},
+    "query_params": {},
+    "path_params": {},
+    "response_header": {
+      "Content-Type": "application/json"
+    },
+    "response_body": {
+      "error": "Forbidden"
+    },
+    "expected_status_code": 403
+  }
+]
